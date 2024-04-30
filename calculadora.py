@@ -9,5 +9,5 @@ def calculadora (num1, num2, operacao):
           return num1 / num2
      else:
           return 0
-     resultado = calculadora (4, 7, 1)
+     resultado = calculadora (3, 6, 4)
      print (resultado)
