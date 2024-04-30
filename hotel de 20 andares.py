@@ -1,8 +1,8 @@
-for i in range (1, 20):
-     if(i == 13):
+for int in range (1, 20):
+     if(int == 13):
           continue
 else:
-     print(i)
+     print(int)
      contador = 1
      while(contador <= 20):
           if(contador == 13):
@@ -11,8 +11,8 @@ else:
           else:
                print(contador)
                contador = contador + 1
-               for i in range(20, 0, -1):
-                    if(i == 13):
+               for int in range(20, 0, -1):
+                    if(int == 13):
                          continue
                     else:
-                         print(i)
+                         print(int)
