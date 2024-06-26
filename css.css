@@ -1,0 +1,72 @@
+header 
+  /* fallback */
+.font-face {
+  font-family: 'Playwrite MX';
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/playwritemx/v4/6xK9dSNbKtCe7KfhXg7RYSwyQ-oO7xNblyJr9wnc5xM.woff2) format('woff2');
+}
+
+header, footer {
+  background: #ccd5ae;
+  color: #283618;
+  padding: 16px;
+}
+
+#logo-header {
+  font-size: 64px;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+main {
+  background-color: #faedcd;
+  padding: 16px;
+  color: #bc6c25;
+  font-family: "Playwrite MX", cursive;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+img {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rede-social {
+  font-family: "Playwrite MX", cursive;
+  margin: 8px;
+  
+}
+
+/* Aplicação das propriedades flex box */
+header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+img {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+}
+ul {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+ 
+}
+
+li, .rede-social {
+  margin-left: 50px;
+}
