@@ -1,0 +1,57 @@
+CREATE DATABASE MeuBancoDeDados;
+USE MeuBancoDeDados;
+CREATE TABLE Clientes (
+    ClienteID INT PRIMARY KEY AUTO_INCREMENT,
+    Nome VARCHAR(100),
+    Email VARCHAR(100),
+    Telefone VARCHAR(15)
+);
+CREATE TABLE Produtos (
+    ProdutoID INT PRIMARY KEY AUTO_INCREMENT,
+    NomeProduto VARCHAR(100),
+    Preco DECIMAL(10, 2),
+    QuantidadeEmEstoque INT
+);
+CREATE TABLE Pedidos (
+    PedidoID INT PRIMARY KEY AUTO_INCREMENT,
+    ClienteID INT,
+    ProdutoID INT,
+    Quantidade INT,
+    DataPedido DATE,
+    FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID),
+    FOREIGN KEY (ProdutoID) REFERENCES Produtos(ProdutoID)
+);
+INSERT INTO Clientes (Nome, Email, Telefone)
+VALUES 
+('João Silva', 'joao.silva@email.com', '11999999999'),
+('Maria Oliveira', 'maria.oliveira@email.com', '21988888888'),
+('Pedro Santos', 'pedro.santos@email.com', '31977777777');
+INSERT INTO Produtos (NomeProduto, Preco, QuantidadeEmEstoque)
+VALUES 
+('Notebook', 3000.00, 50),
+('Smartphone', 1500.00, 100),
+('Tablet', 800.00, 70);
+INSERT INTO Pedidos (ClienteID, ProdutoID, Quantidade, DataPedido)
+VALUES 
+(1, 1, 2, '2024-08-01'),
+(2, 2, 1, '2024-08-05'),
+(3, 3, 3, '2024-08-10');
+SELECT 
+    Pedidos.PedidoID,
+    Clientes.Nome AS NomeCliente,
+    Produtos.NomeProduto,
+    Pedidos.Quantidade,
+    Pedidos.DataPedido
+FROM 
+    Pedidos
+INNER JOIN Clientes ON Pedidos.ClienteID = Clientes.ClienteID
+INNER JOIN Produtos ON Pedidos.ProdutoID = Produtos.ProdutoID;
+SELECT 
+    Clientes.Nome AS NomeCliente,
+    SUM(Produtos.Preco * Pedidos.Quantidade) AS TotalGasto
+FROM 
+    Pedidos
+INNER JOIN Clientes ON Pedidos.ClienteID = Clientes.ClienteID
+INNER JOIN Produtos ON Pedidos.ProdutoID = Produtos.ProdutoID
+GROUP BY 
+    Clientes.Nome;
