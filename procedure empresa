@@ -1,0 +1,23 @@
+CREATE TABLE Compras (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    produto_id INT,
+    quantidade INT,
+    data_compra DATE
+);
+DELIMITER //
+
+CREATE PROCEDURE GerarRelatorioDiarioCompras()
+BEGIN
+    SELECT 
+        data_compra,
+        SUM(quantidade) AS quantidade_total
+    FROM 
+        Compras
+    GROUP BY 
+        data_compra
+    ORDER BY 
+        data_compra;
+END //
+
+DELIMITER ;
+CALL GerarRelatorioDiarioCompras();
