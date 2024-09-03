@@ -1,0 +1,26 @@
+import sqlite3
+from datetime import datetime
+
+def contar_clientes_por_dia(data):
+    # Conectar ao banco de dados
+    conexao = sqlite3.connect('nome_do_banco_de_dados.db')
+    cursor = conexao.cursor()
+    
+    # Converter a data para o formato adequado
+    data_formatada = datetime.strptime(data, '%Y-%m-%d').date()
+    
+    # Executar a consulta para contar os clientes cadastrados na data especificada
+    cursor.execute("SELECT COUNT(*) FROM clientes WHERE DATE(data_cadastro) = ?", (data_formatada,))
+    resultado = cursor.fetchone()
+    
+    # Fechar a conexão com o banco de dados
+    cursor.close()
+    conexao.close()
+    
+    # Retornar o número de clientes cadastrados
+    return resultado[0]
+
+# Exemplo de uso da função
+data = '2024-09-03'
+numero_de_clientes = contar_clientes_por_dia(data)
+print(f'Número de clientes cadastrados em {data}: {numero_de_clientes}')
