@@ -1,0 +1,58 @@
+CREATE DATABASE salon_management;
+
+USE salon_management;
+
+CREATE TABLE Customers (
+    customer_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    phone VARCHAR(15),
+    date_of_birth DATE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Services (
+    service_id INT PRIMARY KEY AUTO_INCREMENT,
+    service_name VARCHAR(100),
+    price DECIMAL(10, 2),
+    duration INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Appointments (
+    appointment_id INT PRIMARY KEY AUTO_INCREMENT,
+    customer_id INT,
+    service_id INT,
+    appointment_date DATETIME,
+    status VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id),
+    FOREIGN KEY (service_id) REFERENCES Services(service_id)
+);
+
+CREATE TABLE Reviews (
+    review_id INT PRIMARY KEY AUTO_INCREMENT,
+    customer_id INT,
+    service_id INT,
+    rating INT,
+    comment TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id),
+    FOREIGN KEY (service_id) REFERENCES Services(service_id)
+);
+// agora colocando o trigger:
+
+DELIMITER //
+
+CREATE TRIGGER update_appointment_status_after_date
+AFTER UPDATE ON Appointments
+FOR EACH ROW
+BEGIN
+    IF NEW.appointment_date < NOW() AND NEW.status != 'concluído' THEN
+        UPDATE Appointments
+        SET status = 'concluído'
+        WHERE appointment_id = NEW.appointment_id;
+    END IF;
+END //
+
+DELIMITER ;
