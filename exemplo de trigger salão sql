@@ -40,7 +40,8 @@ CREATE TABLE Reviews (
     FOREIGN KEY (customer_id) REFERENCES Customers(customer_id),
     FOREIGN KEY (service_id) REFERENCES Services(service_id)
 );
-// agora colocando o trigger:
+
+# agora colocando o trigger:
 
 DELIMITER //
 
